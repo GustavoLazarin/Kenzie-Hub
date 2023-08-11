@@ -1,0 +1,22 @@
+.passwordContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    .showIcon {
+        position: absolute;
+        right: 1rem;
+        top: 35%;
+
+        svg {
+            color: var(--color-gray-1) !important;
+            transition: .4s;
+        } 
+
+        &:hover svg {
+            color: var(--color-gray-0) !important;
+        }
+    }
+}

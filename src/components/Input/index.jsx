@@ -1,7 +1,7 @@
 export const Input = ({type, id, label, ...rest}) => {
     return (
-        <div>
-            {label ? <label htmlFor={id}>{label}</label> : null}
+        <div className="input-box">
+            {label ? <label className="headline" htmlFor={id}>{label}</label> : null}
             <input type={type} id={id} {...rest}/>
         </div>
     )

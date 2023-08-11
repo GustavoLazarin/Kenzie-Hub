@@ -1,0 +1,36 @@
+h1, h2, h3, p, span, label, input, button, select {
+    color: #F8F9FA;
+    font-family: Inter;
+    font-weight: 600;
+}
+
+.title-1 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.7766rem;
+}
+
+.title-2 {
+    font-size: 1rem;
+    line-height: 1.6496rem;
+}
+
+.headline {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3959rem;
+
+    &.bold {
+        font-weight: 600;
+    }
+
+    &.dark {
+        color: var(--color-gray-1);
+    }
+}
+
+p, .paragraph {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.1421rem;
+}
