@@ -16,8 +16,9 @@ a {
     }
 }
 
-input {
+input, select {
     border: none;
+    appearance: none;
 }
 
 input[type="password"] {

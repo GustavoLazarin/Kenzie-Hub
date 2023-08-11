@@ -27,6 +27,10 @@ h1, h2, h3, p, span, label, input, button, select {
     &.dark {
         color: var(--color-gray-1);
     }
+
+    &.danger {
+        color: var(--color-danger);
+    }
 }
 
 p, .paragraph {
