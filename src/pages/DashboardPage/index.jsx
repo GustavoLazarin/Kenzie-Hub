@@ -1,15 +1,15 @@
 import { Header } from "../../components/Header";
 import styles from "./style.module.scss";
 
-export const DashboardPage = () => {
+export const DashboardPage = ({setUser, user}) => {
   return (
     <div>
-      <Header/>
+      <Header setUser={setUser}/>
       <main>
         <section className={styles.userSection}>
           <div className="container">
-            <h1 className="title-1">Olá, usuário</h1>
-            <p className="headline dark">Modulo do usuário</p>
+            <h1 className="title-1">Olá, {user.name}</h1>
+            <p className="headline dark">{user.course_module}</p>
           </div>
         </section>
         <div className="container">

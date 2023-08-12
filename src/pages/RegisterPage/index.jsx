@@ -3,21 +3,41 @@ import styles from "./style.module.scss"
 import { Input } from "../../components/Input"
 import { Select } from "../../components/Select"
 import { InputPass } from "../../components/InputPass"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { registerSchema } from "./registerFormSchema"
+import { api } from "../../services/api"
+import { toast } from "react-toastify"
+import { useState } from "react"
 
 export const RegisterPage = () => {
 
+    const [isLoading, setIsLoading] = useState(false)
     const {register, handleSubmit, reset, formState: {errors}} = useForm({
         resolver: zodResolver(registerSchema)
     })
+
     const navigate = useNavigate();
 
-    const submit = (formData) => {
-        console.log(formData)
-        reset();
+    const submit = async (formData) => {
+        try {
+            setIsLoading(true)
+            const {data} = await api.post("/users", formData);
+            toast.success("Cadastro criado com sucesso!", {
+                position: "top-right",
+                autoClose: 3000,
+             })
+             reset();
+             navigate("/");
+        } catch (error) {
+            toast.error("Ops, algo deu errado...", {
+                position: "top-right",
+                autoClose: 3000,
+            })
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -27,10 +47,10 @@ export const RegisterPage = () => {
                     <div className={styles.registerBox}>
                         <div className={styles.registerHeader}>
                             <img src={logo} alt="Kenziehub Logo" />
-                            <button className="btn-dark sm" onClick={() => navigate("/")}>Voltar</button>
+                            <Link className="btn-dark sm headline" to={"/"}>Voltar</Link>
                         </div>
                         <form className={styles.formBox} onSubmit={handleSubmit(submit)}>
-                            <h1>Crie sua conta</h1>
+                            <h1 className="title-1">Crie sua conta</h1>
                             <p className="headline dark">Rapido e grátis, vamos nessa</p>
                             <Input type="text" id="name" label="Nome" placeholder="Digite aqui seu nome" error={errors.name} {...register("name")}/>
                             <Input type="email" id="email" label="Email" placeholder="Digite aqui seu email" error={errors.email} {...register("email")}/>
@@ -46,7 +66,7 @@ export const RegisterPage = () => {
                                 <option value="Quarto módulo (Backend Avançado)">Quarto Módulo</option>
                             </Select>
 
-                            <button className="btn-primary" type="submit">Cadastrar</button>
+                            <button className="btn-primary" type="submit" disabled={isLoading}>{isLoading ? "Carregando..." : "Cadastrar"}</button>
                         </form>
                     </div>
                 </div>
