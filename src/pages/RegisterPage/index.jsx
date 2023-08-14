@@ -18,7 +18,7 @@ export const RegisterPage = () => {
         resolver: zodResolver(registerSchema)
     })
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const submit = async (formData) => {
         try {

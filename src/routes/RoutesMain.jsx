@@ -3,7 +3,7 @@ import { LoginPage } from "../pages/LoginPage"
 import { RegisterPage } from "../pages/RegisterPage"
 import { DashboardPage } from "../pages/DashboardPage"
 import { ToastContainer } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-toastify/dist/ReactToastify.min.css'
 import { useState } from "react"
 
 export const RoutesMain = () => {

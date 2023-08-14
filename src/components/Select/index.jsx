@@ -1,6 +1,6 @@
 import { FaAngleDown } from "react-icons/fa"
 import styles from "./style.module.scss"
-import { forwardRef } from "react";
+import { forwardRef } from "react"
 
 export const Select = forwardRef(({label, id, children, defaultValue, error, ...rest}, ref) => {
   return (

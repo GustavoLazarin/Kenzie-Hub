@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const registerSchema = z.object({
   name: z.string().nonempty("É necessário preencher o campo de nome."),
@@ -20,4 +20,4 @@ export const registerSchema = z.object({
 }).refine(({password, confirmPassword})=> password === confirmPassword , {
     message: "As senhas não conferem.",
     path: ["confirmPassword"] 
-});
+})

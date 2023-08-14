@@ -1,4 +1,3 @@
-import { set } from "react-hook-form"
 import logo from "../../assets/Logo.svg"
 import styles from "./style.module.scss"
 import { useNavigate } from "react-router-dom"
