@@ -9,11 +9,13 @@ export const UserProvider = ({children}) => {
     const navigate = useNavigate()
 
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem("@TOKEN")
         const getUser = async () => {
             try {
+                setLoading(true)
                 const { data } = await api.get("/profile", {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -24,6 +26,8 @@ export const UserProvider = ({children}) => {
             } catch (error) {
                 console.log(error)
                 localStorage.removeItem("@TOKEN")
+            } finally {
+                setLoading(false)
             }
         }
 
@@ -35,7 +39,7 @@ export const UserProvider = ({children}) => {
     const registerUser = async (formData, setIsLoading, reset) => {
         try {
             setIsLoading(true)
-            const {data} = await api.post("/users", formData)
+            await api.post("/users", formData)
             toast.success("Cadastro criado com sucesso!")
             reset();
             navigate("/");
@@ -68,11 +72,10 @@ export const UserProvider = ({children}) => {
         setUser(null)
         localStorage.removeItem("@TOKEN")
         toast.warning("Usuário deslogado.")
-        navigate("/")
     }
 
     return (
-        <UserContext.Provider value={{user, registerUser, userLogin, logOut}}>
+        <UserContext.Provider value={{user, loading, registerUser, userLogin, logOut}}>
             {children}
         </UserContext.Provider>
     )
