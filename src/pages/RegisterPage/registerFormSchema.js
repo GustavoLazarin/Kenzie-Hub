@@ -5,7 +5,7 @@ export const registerSchema = z.object({
   email: z
     .string()
     .nonempty("É necessário preencher o campo de email.")
-    .email("Insira um e-mail valido."),
+    .email("Insira um email valido."),
   password: z
     .string()
     .nonempty("É necessário fornecer uma senha.")

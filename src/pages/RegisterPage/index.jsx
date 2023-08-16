@@ -3,41 +3,25 @@ import styles from "./style.module.scss"
 import { Input } from "../../components/Input"
 import { Select } from "../../components/Select"
 import { InputPass } from "../../components/InputPass"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { registerSchema } from "./registerFormSchema"
-import { api } from "../../services/api"
-import { toast } from "react-toastify"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserContext } from "../../providers/UserContext"
 
 export const RegisterPage = () => {
 
     const [isLoading, setIsLoading] = useState(false)
+
     const {register, handleSubmit, reset, formState: {errors}} = useForm({
         resolver: zodResolver(registerSchema)
     })
 
-    const navigate = useNavigate()
+    const {registerUser} = useContext(UserContext)
 
     const submit = async (formData) => {
-        try {
-            setIsLoading(true)
-            const {data} = await api.post("/users", formData);
-            toast.success("Cadastro criado com sucesso!", {
-                position: "top-right",
-                autoClose: 3000,
-             })
-             reset();
-             navigate("/");
-        } catch (error) {
-            toast.error("Ops, algo deu errado...", {
-                position: "top-right",
-                autoClose: 3000,
-            })
-        } finally {
-            setIsLoading(false)
-        }
+        registerUser(formData, setIsLoading, reset)
     }
 
     return (

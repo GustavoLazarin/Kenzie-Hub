@@ -1,10 +1,15 @@
+import { useContext } from "react";
 import { Header } from "../../components/Header"
 import styles from "./style.module.scss"
+import { UserContext } from "../../providers/UserContext";
 
-export const DashboardPage = ({setUser, user}) => {
+export const DashboardPage = () => {
+
+  const {user} = useContext(UserContext)
+
   return (
     <div>
-      <Header setUser={setUser}/>
+      <Header/>
       <main>
         <section className={styles.userSection}>
           <div className="container">

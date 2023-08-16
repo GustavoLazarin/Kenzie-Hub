@@ -1,18 +1,11 @@
+import { useContext } from "react"
 import logo from "../../assets/Logo.svg"
 import styles from "./style.module.scss"
-import { useNavigate } from "react-router-dom"
+import { UserContext } from "../../providers/UserContext"
 
-export const Header = ({setUser}) => {
+export const Header = () => {
+    const {logOut} = useContext(UserContext)
 
-    const navigate = useNavigate()
-
-    const logOut = () => {
-        setUser(null)
-        localStorage.removeItem("@TOKEN")
-
-        navigate("/")
-    }
-    
     return (
         <div className="container">
             <header className={styles.header}>

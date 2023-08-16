@@ -1,54 +1,26 @@
 import logo from "../../assets/Logo.svg"
 import styles from "./style.module.scss"
-import { Input } from "../../components/Input"
-import { InputPass } from "../../components/InputPass"
 import { useForm } from "react-hook-form"
-import { Link, useNavigate } from "react-router-dom"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginSchema } from "./loginFormSchema"
-import { useState } from "react"
-import { toast } from "react-toastify"
-import { api } from "../../services/api"
+import { Input } from "../../components/Input"
+import { InputPass } from "../../components/InputPass"
+import { Link } from "react-router-dom"
+import { useContext, useState } from "react"
+import { UserContext } from "../../providers/UserContext"
 
-export const LoginPage = ({setUser}) => {
-
+export const LoginPage = () => {
+    
     const [isLoading, setIsLoading] = useState(false)
 
     const {register, handleSubmit, reset, formState: {errors}} = useForm({
         resolver: zodResolver(loginSchema)
     })
-
-    const navigate = useNavigate()
+    
+    const {userLogin} = useContext(UserContext)
 
     const submit = async (formData) =>{
-        try {
-            setIsLoading(true)
-
-            const {data} = await api.post("/sessions", formData);
-
-            toast.success("Login realizado com sucesso!", {
-                position: "top-right",
-                autoClose: 3000,
-             })
-
-             setUser(data.user);
-             localStorage.setItem("@TOKEN", data.token)
-
-             reset();
-             navigate("/dashboard");
-        } catch (error) {
-            error.response.data.message == "Incorrect email / password combination" ? 
-            toast.error("Email ou senha incorreta.", {
-                  position: "top-right",
-                  autoClose: 3000,
-                })
-                : toast.error("Ops, algo deu errado...", {
-                    position: "top-right",
-                    autoClose: 3000,
-                })
-        } finally {
-            setIsLoading(false)
-        }
+        userLogin(formData, setIsLoading, reset)
     }
 
     return (
