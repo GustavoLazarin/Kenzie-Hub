@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
 import { toast } from "react-toastify"
@@ -9,6 +9,28 @@ export const UserProvider = ({children}) => {
     const navigate = useNavigate()
 
     const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        const token = localStorage.getItem("@TOKEN")
+        const getUser = async () => {
+            try {
+                const { data } = await api.get("/profile", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                setUser(data)
+                navigate("/dashboard")
+            } catch (error) {
+                console.log(error)
+                localStorage.removeItem("@TOKEN")
+            }
+        }
+
+        if (token) {
+            getUser()
+        }
+    }, [])
    
     const registerUser = async (formData, setIsLoading, reset) => {
         try {
@@ -45,6 +67,7 @@ export const UserProvider = ({children}) => {
     const logOut = () => {
         setUser(null)
         localStorage.removeItem("@TOKEN")
+        toast.warning("Usuário deslogado.")
         navigate("/")
     }
 

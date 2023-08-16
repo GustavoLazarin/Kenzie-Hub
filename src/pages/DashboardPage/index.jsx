@@ -13,8 +13,8 @@ export const DashboardPage = () => {
       <main>
         <section className={styles.userSection}>
           <div className="container">
-            <h1 className="title-1">Olá, {user.name}</h1>
-            <p className="headline dark">{user.course_module}</p>
+            <h1 className="title-1">Olá, {user?.name}</h1>
+            <p className="headline dark">{user?.course_module}</p>
           </div>
         </section>
         <div className="container">
