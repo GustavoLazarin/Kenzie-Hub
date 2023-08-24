@@ -9,12 +9,14 @@ export const TechProvider = ({children}) => {
 
     const { userTechs, setUserTechs } = useContext(UserContext)
 
+    const [loading, setLoading] = useState(false)
     const [creatingTech, setCreatingTech] = useState(false)
     const [editingTech, setEditingTech] = useState(null)
 
     const createTech = async (formData) => {
         const token = localStorage.getItem("@TOKEN")
         try {
+            setLoading(true)
             const { data } = await api.post("/users/techs", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -28,10 +30,13 @@ export const TechProvider = ({children}) => {
             if (error.response.data.message === "User Already have this technology created you can only update it") {
                 toast.warn("Você já possui essa tecnologia.")
             }
+        } finally {
+            setLoading(false)
         }
     }
 
     const deleteTech = async (techId) => {
+        setLoading(true)
         const token = localStorage.getItem("@TOKEN")
         try {
             await api.delete(`/users/techs/${techId}`, {
@@ -43,10 +48,13 @@ export const TechProvider = ({children}) => {
             toast.success("Tecnologia excluida com sucesso!")
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
     const updateTech = async (formData) => {
+        setLoading(true)
         const token = localStorage.getItem("@TOKEN")
         try {
             console.log(formData)
@@ -69,11 +77,13 @@ export const TechProvider = ({children}) => {
             toast.success("Tecnologia alterada com sucesso.")
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
-        <TechContext.Provider value={ {creatingTech, setCreatingTech, createTech, deleteTech, updateTech, editingTech, setEditingTech } }>
+        <TechContext.Provider value={ {creatingTech, setCreatingTech, createTech, deleteTech, updateTech, editingTech, setEditingTech, loading } }>
             {children}
         </TechContext.Provider>
     )

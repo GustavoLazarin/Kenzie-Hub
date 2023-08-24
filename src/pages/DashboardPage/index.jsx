@@ -3,8 +3,12 @@ import { Header } from "../../components/Header"
 import styles from "./style.module.scss"
 import { UserContext } from "../../providers/UserContext";
 import { TechList } from "../../components/TechList";
+import { TechContext } from "../../providers/TechContext";
+import { LoadingBar } from "../../components/LoadingBar";
 
 export const DashboardPage = () => {
+
+  const { loading } = useContext(TechContext)
 
   const {user} = useContext(UserContext)
 
@@ -23,6 +27,7 @@ export const DashboardPage = () => {
             <TechList/>
           </div>
         </div>
+        {loading ? <LoadingBar/> : null}
       </main>
     </div>
   );

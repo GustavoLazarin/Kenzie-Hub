@@ -43,8 +43,8 @@ export const UserProvider = ({children}) => {
             setIsLoading(true)
             await api.post("/users", formData)
             toast.success("Cadastro criado com sucesso!")
-            reset();
-            navigate("/");
+            reset()
+            navigate("/")
         } catch (error) {
             error.response.data.message == "Email already exists" ? toast.error("Email ja cadastrado.") : toast.error("Ops, algo deu errado...")
             console.log(error)
