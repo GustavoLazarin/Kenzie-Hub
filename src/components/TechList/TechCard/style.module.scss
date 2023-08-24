@@ -1,0 +1,34 @@
+.techCard {
+    padding: 13px clamp(15px, 2vw, 22px);
+    border-radius: 4px;
+    background: var(--color-gray-4);
+
+    display: flex;
+    gap: 3px;
+    flex-direction: column;
+    
+
+    .techInfo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .techEdit {
+            margin-left: 10px;
+
+            display: flex;
+            gap: 10px;
+
+            button {
+                height: max-content;
+                display: flex;
+            }
+        }
+    }
+
+    @media (min-width: 426px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
