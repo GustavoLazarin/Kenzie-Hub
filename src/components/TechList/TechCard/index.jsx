@@ -13,7 +13,7 @@ export const TechCard = ({tech}) => {
             <div className={styles.techInfo}>
                 <p className="headline dark">{tech?.status}</p>
                 <div className={styles.techEdit}>
-                    <button onClick={() => setEditingTech(tech)} title="Editar tecnologia" aria-label="edit-tech"><MdOutlineEdit size={20}/></button>
+                    <button onClick={() => setEditingTech(tech)} title="Editar status" aria-label="edit-tech"><MdOutlineEdit size={20}/></button>
                     <button onClick={() => deleteTech(tech.id)} title="Excluir tecnologia" aria-label="delete-tech"><MdDeleteOutline size={20}/></button>
                 </div>
             </div>

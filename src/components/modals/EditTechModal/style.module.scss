@@ -62,6 +62,11 @@
 
             input, select {
                 height: clamp(2.375rem, 4vw, 3rem);
+
+                &:disabled {
+                    opacity: 0.7;
+                    cursor: no-drop;
+                }
             }
         }
     }

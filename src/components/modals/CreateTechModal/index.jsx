@@ -26,7 +26,7 @@ export const CreateTechModal = () => {
             <div className={styles.modalContainer}>
                 <div className={styles.modalHeader}>
                     <h3 className="headline bold">Cadastrar Tecnologia</h3>
-                    <button onClick={() => setCreatingTech(false)}><MdClose size={24}/></button>
+                    <button onClick={() => setCreatingTech(false)} title="Fechar" aria-label="close-create"><MdClose size={24}/></button>
                 </div>
                 <div className={styles.modalContent}>
                     <form onSubmit={handleSubmit(submit)}>

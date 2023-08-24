@@ -47,11 +47,33 @@ export const TechProvider = ({children}) => {
     }
 
     const updateTech = async (formData) => {
-        
+        const token = localStorage.getItem("@TOKEN")
+        try {
+            console.log(formData)
+            const { data } = await api.put(`/users/techs/${editingTech.id}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            
+            const updatedTechs = userTechs.map(tech => {
+                if (tech.id === data.id) {
+                    return data
+                } else {
+                    return tech
+                }
+            })
+            setUserTechs(updatedTechs)
+
+            setEditingTech(null)
+            toast.success("Tecnologia alterada com sucesso.")
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
-        <TechContext.Provider value={ {creatingTech, setCreatingTech, createTech, deleteTech, editingTech, setEditingTech} }>
+        <TechContext.Provider value={ {creatingTech, setCreatingTech, createTech, deleteTech, updateTech, editingTech, setEditingTech } }>
             {children}
         </TechContext.Provider>
     )
