@@ -10,6 +10,7 @@ export const UserProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [userTechs, setUserTechs] = useState([])
 
     useEffect(() => {
         const token = localStorage.getItem("@TOKEN")
@@ -22,6 +23,7 @@ export const UserProvider = ({children}) => {
                     }
                 })
                 setUser(data)
+                setUserTechs(data.techs)
                 navigate("/dashboard")
             } catch (error) {
                 console.log(error)
@@ -59,6 +61,7 @@ export const UserProvider = ({children}) => {
              
              localStorage.setItem("@TOKEN", data.token)
              setUser(data.user)
+             setUserTechs(data.user.techs)
              reset()
              navigate("/dashboard")
         } catch (error) {
@@ -75,7 +78,7 @@ export const UserProvider = ({children}) => {
     }
 
     return (
-        <UserContext.Provider value={{user, loading, registerUser, userLogin, logOut}}>
+        <UserContext.Provider value={{user, loading, registerUser, userLogin, logOut, userTechs, setUserTechs}}>
             {children}
         </UserContext.Provider>
     )
